@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TrainTicketSystem_HashmapBeatsTheRest" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#1DE9B6</item>
+        <item name="colorPrimaryDark">#00BFA5</item>
+        <item name="colorAccent">#64FFDA</item>
+    </style>
+</resources>
