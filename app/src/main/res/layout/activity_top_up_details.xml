@@ -21,7 +21,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Input Top-up Amount:"
-            android:textColor="@color/black"
+            android:textColor="?colorOnSurface"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
             android:hint="Amount"
             android:inputType="number"
             android:maxLength="6"
-            android:textColor="@color/black"
+            android:textColor="?colorOnSurface"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,8 +78,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/my_button_bg"
                 android:text="5"
+                android:textColor="@color/md_theme_onPrimary"
                 android:textSize="18dp"
-                android:textColor="@color/black"
                 app:layout_gravity="center" />
 
             <Button
@@ -168,7 +168,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_toRightOf="@+id/img_payment"
                 android:text="Payment"
-                android:textColor="@color/black"/>
+                android:textColor="?colorOnSurface"/>
 
             <TextView
                 android:id="@+id/tv9"
@@ -181,7 +181,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Please Select a Payment Method"
-                android:textColor="@color/black" />
+                android:textColor="?colorOnSurface" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -251,7 +251,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Total Payment"
-                android:textColor="@color/black"
+                android:textColor="?colorOnSurface"
                 android:textStyle="bold" />
 
             <TextView
@@ -317,9 +317,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_centerInParent="true"
-                android:background="#0336FF"
                 android:text="Pay Now"
-                android:textColor="@color/white" />
+                android:textColor="@color/md_theme_onPrimary" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

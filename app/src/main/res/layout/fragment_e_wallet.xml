@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EWalletFragment">
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#0D47A1"
+        android:background="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RM "
-                android:textColor="@color/black"
+                android:textColor="?colorOnSurface"
                 android:textSize="24dp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -56,7 +57,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="0.00"
-                android:textColor="@color/black"
+                android:textColor="?colorOnSurface"
                 android:textSize="24dp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -83,13 +84,13 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="KTM Wallet Balance"
+        android:textColor="@color/md_theme_onPrimary"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginTop="50dp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,7 +121,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:text="Transaction History"
-            android:textColor="@color/black"
+            android:textColor="?colorOnSurface"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -173,7 +174,7 @@
                     android:layout_marginEnd="@dimen/default_gap"
                     android:layout_marginBottom="@dimen/default_gap"
                     android:text="Top up"
-                    android:textColor="@color/black"
+                    android:textColor="?colorOnSurface"
                     android:textSize="24dp"
                     android:textStyle="bold"
                     android:layout_alignParentLeft="true"/>
@@ -218,7 +219,7 @@
                     android:layout_marginEnd="@dimen/default_gap"
                     android:layout_marginBottom="@dimen/default_gap"
                     android:text="Refund"
-                    android:textColor="@color/black"
+                    android:textColor="?colorOnSurface"
                     android:textSize="24dp"
                     android:textStyle="bold"
                     android:layout_alignParentLeft="true"
