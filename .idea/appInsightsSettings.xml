@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.trainticketsystem_hashmapbeatstherest" />
+                  <option name="mobileSdkAppId" value="1:188258859642:android:1900e5888bb509186519c3" />
+                  <option name="projectId" value="hashmapbeatstherest" />
+                  <option name="projectNumber" value="188258859642" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
