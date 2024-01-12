@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "188258859642",
+    "project_id": "hashmapbeatstherest",
+    "storage_bucket": "hashmapbeatstherest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188258859642:android:1900e5888bb509186519c3",
+        "android_client_info": {
+          "package_name": "com.example.trainticketsystem_hashmapbeatstherest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa9zJM-vpregs399Q9jOFk1gLTN66y-TQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
