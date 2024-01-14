@@ -47,6 +47,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.11.0")
     implementation("androidx.navigation:navigation-fragment:2.7.6")
     implementation("androidx.navigation:navigation-ui:2.7.6")
+    implementation("com.journeyapps:zxing-android-embedded:4.1.0")
     //implementation("androidmads.library.qrgenearator:QRGenearator:1.0.4")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
