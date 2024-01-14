@@ -16,10 +16,10 @@ public class MainActivity extends AppCompatActivity {
 
     //bottom navigation 20-25
     static BottomNavigationView bottomNavigationView;
-     BuyTicketFragment buyTicketFragment= new BuyTicketFragment();
-     MyTicketsFragment myTicketsFragment = new MyTicketsFragment();
-     EWalletFragment eWalletFragment = new EWalletFragment();
-     AccountFragment accountFragment = new AccountFragment();
+     BuyTicketFragment buyTicketFragment;
+     MyTicketsFragment myTicketsFragment ;
+     EWalletFragment eWalletFragment ;
+     AccountFragment accountFragment ;
 
      SelectTrainFragment selectTrainFragment = new SelectTrainFragment();
 
@@ -33,12 +33,25 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(intent);
+        };
+
         setContentView(R.layout.activity_main);
 
-
-
+        buyTicketFragment= new BuyTicketFragment();
+        myTicketsFragment = new MyTicketsFragment();
+        eWalletFragment = new EWalletFragment();
+        accountFragment = new AccountFragment();
         //bottom navigation
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         getSupportFragmentManager().beginTransaction().replace(R.id.container,buyTicketFragment).commit();
