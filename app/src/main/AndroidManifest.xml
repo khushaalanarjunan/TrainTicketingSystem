@@ -18,6 +18,12 @@
             android:label="@string/title_activity_ticket_detail"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".AuthenticationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
