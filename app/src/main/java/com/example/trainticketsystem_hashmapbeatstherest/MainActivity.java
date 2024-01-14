@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.trainticketsystem_hashmapbeatstherest.adapter.MyTicketsFragmentPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,6 +17,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         //bottom navigation
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null){
             // go to login page
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
             startActivity(intent);
         }
     }
@@ -82,8 +86,17 @@ public class MainActivity extends AppCompatActivity {
     //logout button click
     public void logout(){
         mFirebaseAuth.signOut();
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+        Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
         startActivity(intent);
     }
 
+    public String getUserEmail(){
+        if(mFirebaseUser != null){
+            return mFirebaseUser.getEmail();
+        }
+        else{
+         return "null";
+        }
+    }
 }

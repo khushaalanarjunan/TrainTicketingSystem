@@ -11,61 +11,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.trainticketsystem_hashmapbeatstherest.object.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
     protected EditText etEmail, etPassword;
-    protected Button btnLogin, btnSignUp;
+    protected Button btnLogin;
 
     private FirebaseAuth mFirebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
-
         etEmail = findViewById(R.id.et_email_login);
         etPassword = findViewById(R.id.et_password_login);
-        btnLogin = findViewById(R.id.btn_login);
-        btnSignUp = findViewById(R.id.btn_signup_login);
-
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String password = etPassword.getText().toString();
-                String email = etEmail.getText().toString();
-
-                password = password.trim();
-                email = email.trim();
-
-                if(password.isEmpty() || email.isEmpty()){
-                    //remind
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage("Please enter an email and password").setTitle("Warning").setPositiveButton("OK", null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }else{
-                    mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                goToMainActivity();
-                            }else{
-                                Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            }
-        });
+        btnLogin = findViewById(R.id.btn_signup_authentication);
 
 
 
@@ -92,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 goToMainActivity();
                             }else{
-                                Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
