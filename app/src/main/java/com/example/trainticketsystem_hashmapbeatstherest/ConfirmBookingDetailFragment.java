@@ -1,13 +1,14 @@
 package com.example.trainticketsystem_hashmapbeatstherest;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
+import java.util.Date;
 
 public class ConfirmBookingDetailFragment extends Fragment {
 
@@ -31,7 +32,7 @@ public class ConfirmBookingDetailFragment extends Fragment {
         String trainSlotCode = bundle.getString("trainSlotCode");
         String trainSlotOriginCode = bundle.getString("trainSlotOriginCode");
         String trainSlotDestinationCode = bundle.getString("trainSlotDestinationCode");
-        String trainSlotStartTime =  bundle.getString("trainSlotStartTime");
+        Long trainSlotStartTime =  bundle.getLong("trainSlotStartTime");
         Long trainSlotDuration = bundle.getLong("trainSlotDuration");
         String trainSlotType = bundle.getString("trainSlotType");
 
@@ -49,8 +50,9 @@ public class ConfirmBookingDetailFragment extends Fragment {
         tvOrigin.setText(trainSlotOriginCode);
         tvDestination.setText(trainSlotDestinationCode);
         tvTrainID.setText(trainSlotCode);
-        tvDepartureDate.setText(trainSlotStartTime);
-        tvDepartureTime.setText(trainSlotStartTime);
+        Date date=new Date(trainSlotStartTime);
+        tvDepartureDate.setText(date.toString());
+        tvDepartureTime.setText(date.toString());
         tvPrice.setText("RM 100");
         tvCoach.setText(trainSlotType);
         tvSeat.setText("A1");

@@ -5,14 +5,14 @@ public class TrainSlot {
     private String code;
     private String originCode;
     private String destinationCode;
-    private String startTime;
+    private Long startTime;
     private Long duration;
     private String type;
 
     public TrainSlot() {
     }
 
-    public TrainSlot(String id, String code, String originCode, String destinationCode, String startTime, Long duration, String type) {
+    public TrainSlot(String id, String code, String originCode, String destinationCode, Long startTime, Long duration, String type) {
         this.id = id;
         this.code = code;
         this.originCode = originCode;
@@ -54,11 +54,11 @@ public class TrainSlot {
         this.destinationCode = destinationCode;
     }
 
-    public String getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 

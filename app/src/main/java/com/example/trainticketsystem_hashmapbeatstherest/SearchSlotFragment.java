@@ -1,15 +1,14 @@
 package com.example.trainticketsystem_hashmapbeatstherest;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.trainticketsystem_hashmapbeatstherest.object.TrainSlot;
 import com.google.firebase.auth.FirebaseAuth;
@@ -78,7 +77,7 @@ public class SearchSlotFragment extends Fragment {
             String trainSlotCode = trainSlot.getCode();
             String trainSlotOriginCode = trainSlot.getOriginCode();
             String trainSlotDestinationCode = trainSlot.getDestinationCode();
-            String trainSlotStartTime = trainSlot.getStartTime();
+            Long trainSlotStartTime = trainSlot.getStartTime();
             Long trainSlotDuration = trainSlot.getDuration();
             String trainSlotType = trainSlot.getType();
 
@@ -87,7 +86,7 @@ public class SearchSlotFragment extends Fragment {
             bundle.putString("trainSlotCode", trainSlotCode);
             bundle.putString("trainSlotOriginCode", trainSlotOriginCode);
             bundle.putString("trainSlotDestinationCode", trainSlotDestinationCode);
-            bundle.putString("trainSlotStartTime", trainSlotStartTime);
+            bundle.putLong("trainSlotStartTime", trainSlotStartTime);
             bundle.putLong("trainSlotDuration", trainSlotDuration);
             bundle.putString("trainSlotType", trainSlotType);
 
