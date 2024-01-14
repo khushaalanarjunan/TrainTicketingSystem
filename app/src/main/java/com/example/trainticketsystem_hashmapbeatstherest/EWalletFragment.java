@@ -61,13 +61,13 @@ public class EWalletFragment extends Fragment {
         databaseTransactions.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                transactions.clear();
+                adapter.clear();
                 for(DataSnapshot transactionDataSnapshot: dataSnapshot.getChildren())
                 {
-                    transactions.clear();
-                    adapter.clear();
                     com.example.trainticketsystem_hashmapbeatstherest.object.Transaction transaction = transactionDataSnapshot.getValue(com.example.trainticketsystem_hashmapbeatstherest.object.Transaction.class);
-                    transactions.add(transaction);
-                    adapter.add(transaction.getTransactionType()+"\n"+transaction.getTransactionAmount()+"\n"+transaction.getTransactionTime());
+                    transactions.add(0,transaction);
+                    adapter.insert(transaction.getTransactionType()+"\n"+transaction.getTransactionAmount()+"\n"+transaction.getTransactionTime(),0);
 
 
                 }
