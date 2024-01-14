@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     EWalletFragment eWalletFragment = new EWalletFragment();
     AccountFragment accountFragment = new AccountFragment();
 
+
+
     //    Firebase Realtimedatabase Link
     //    https://hashmapbeatstherest-default-rtdb.firebaseio.com/
 

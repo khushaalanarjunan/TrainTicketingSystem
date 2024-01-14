@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseOriginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btn_arau"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Arau" />
+
+            <Button
+                android:id="@+id/btn_anakbukit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Anak bukit" />
+
+            <Button
+                android:id="@+id/btn_alorsetar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alor Setar" />
+
+            <Button
+                android:id="@+id/btn_gurun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gurun" />
+
+            <Button
+                android:id="@+id/btn_sungaipetani"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sungai Petani" />
+
+            <Button
+                android:id="@+id/btn_tasekgelugor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tasek Gelugor" />
+
+            <Button
+                android:id="@+id/btn_bukitmertajam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bukit Mertajam" />
+
+            <Button
+                android:id="@+id/btn_nibongtebal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nibong Tebal" />
+
+            <Button
+                android:id="@+id/btn_paritbuntar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Parit Buntar" />
+
+            <Button
+                android:id="@+id/btn_baganserai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bagan Serai" />
+
+            <Button
+                android:id="@+id/btn_kualalumpur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kuala Lumpur" />
+
+            <Button
+                android:id="@+id/btn_klsentral"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="KL Sentral" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
