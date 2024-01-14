@@ -131,7 +131,8 @@ public class AccountFragment extends Fragment {
                             toggleUserGender.isChecked(),
                             etUserEmail.getText().toString(),
                             etUserContactNumber.getText().toString(),
-                            etUserPassword.getText().toString()
+                            etUserPassword.getText().toString(),
+                            "0"
                     );
 
                     databaseUsers.child(currentUserUid).setValue(updatedUser)

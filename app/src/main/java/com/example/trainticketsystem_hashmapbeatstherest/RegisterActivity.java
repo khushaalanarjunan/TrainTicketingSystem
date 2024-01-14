@@ -76,7 +76,8 @@ public class RegisterActivity extends AppCompatActivity {
                                         toggleGender.isChecked(),
                                         etEmail.getText().toString(),
                                         etContactNumber.getText().toString(),
-                                        etPassword.getText().toString()
+                                        etPassword.getText().toString(),
+                                        "0"
                                 );
 
                                 databaseUsers.child(userId).setValue(newUser);

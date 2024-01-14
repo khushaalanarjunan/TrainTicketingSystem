@@ -9,13 +9,14 @@ public class User {
     private String userEmail;
     private String userContact;
     private String userPassword;
+    private String userBalance;
 
 
     public User() {
     }
 
 
-    public User(String userId, String userFullName, String userMYKad, Boolean userGender, String userEmail, String userContact, String userPassword) {
+    public User(String userId, String userFullName, String userMYKad, Boolean userGender, String userEmail, String userContact, String userPassword, String userBalance) {
         this.userId = userId;
         this.userFullName = userFullName;
         this.userMYKad = userMYKad;
@@ -23,8 +24,16 @@ public class User {
         this.userEmail = userEmail;
         this.userContact = userContact;
         this.userPassword = userPassword;
+        this.userBalance = userBalance;
     }
 
+    public String getBalance() {
+        return userBalance;
+    }
+
+    public void setBalance(String userBalance) {
+        this.userBalance = userBalance;
+    }
 
     public String getUserId() {
         return userId;
