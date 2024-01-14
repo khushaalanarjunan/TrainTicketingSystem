@@ -68,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
 
                                 String userId = mFirebaseAuth.getUid();
+                                String userBalance = "0";
 
                                 User newUser = new User(
                                         userId,
@@ -77,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         etEmail.getText().toString(),
                                         etContactNumber.getText().toString(),
                                         etPassword.getText().toString(),
-                                        "0"
+                                        userBalance
                                 );
 
                                 databaseUsers.child(userId).setValue(newUser);

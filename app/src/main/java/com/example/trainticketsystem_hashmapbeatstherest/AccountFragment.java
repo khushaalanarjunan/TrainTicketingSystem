@@ -124,28 +124,42 @@ public class AccountFragment extends Fragment {
 
                     String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                    User updatedUser = new User(
-                            currentUserUid,
-                            etUserFullName.getText().toString(),
-                            etUserMyKADNumber.getText().toString(),
-                            toggleUserGender.isChecked(),
-                            etUserEmail.getText().toString(),
-                            etUserContactNumber.getText().toString(),
-                            etUserPassword.getText().toString(),
-                            "0"
-                    );
+                    databaseUsers.child(currentUserUid).child("userBalance").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Get the current userBalance value
+                                String currentBalance = task.getResult().getValue(String.class);
 
-                    databaseUsers.child(currentUserUid).setValue(updatedUser)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getActivity(), "Profile Updated", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getActivity(), "Failed to update profile", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                                // Create an updatedUser object without changing the balance
+                                User updatedUser = new User(
+                                        currentUserUid,
+                                        etUserFullName.getText().toString(),
+                                        etUserMyKADNumber.getText().toString(),
+                                        toggleUserGender.isChecked(),
+                                        etUserEmail.getText().toString(),
+                                        etUserContactNumber.getText().toString(),
+                                        etUserPassword.getText().toString(),
+                                        currentBalance
+                                );
+
+                                // Update the user profile except the balance
+                                databaseUsers.child(currentUserUid).setValue(updatedUser)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(getActivity(), "Profile Updated", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(getActivity(), "Failed to update profile", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            } else {
+                                Toast.makeText(getActivity(), "Failed to fetch user balance", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
         });
