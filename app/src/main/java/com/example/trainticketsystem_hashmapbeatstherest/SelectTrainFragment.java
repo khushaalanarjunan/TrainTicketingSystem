@@ -36,14 +36,6 @@ public class SelectTrainFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Select Departing Train");
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupViewPager();
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //back to main menu
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new BuyTicketFragment()).commit();
-//
-//            }
-//        });
         viewPager.setOffscreenPageLimit(10);
         return root;
     }

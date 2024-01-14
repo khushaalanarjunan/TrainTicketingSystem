@@ -136,8 +136,6 @@ public class BuyTicketFragment extends Fragment {
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                btnSearchSlot.setEnabled(true);
-//                btnSelectDate.setEnabled(false);
                 ChooseDateFragment chooseDateFragment = new ChooseDateFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, chooseDateFragment).commit();
             }
@@ -152,7 +150,6 @@ public class BuyTicketFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            // 'destination' value exists, remove it
                             databaseTickets.child("destination").removeValue();
                         }
                     }
@@ -162,11 +159,63 @@ public class BuyTicketFragment extends Fragment {
                     }
                 });
 
+                databaseTickets.child("pax").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            databaseTickets.child("pax").removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+
+                //departure date
+                databaseTickets.child("departuredate").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            databaseTickets.child("departuredate").removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+                databaseTickets.child("returndate").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            databaseTickets.child("returndate").removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+
+
                 btnChooseDestination.setEnabled(false);
                 btnSelectPax.setEnabled(false);
                 btnSelectDate.setEnabled(false);
                 btnSearchSlot.setEnabled(false);
                 btnChooseOrigin.setEnabled(true);
+            }
+        });
+
+
+        btnSearchSlot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchSlotFragment searchSlotFragment = new SearchSlotFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, searchSlotFragment).commit();
             }
         });
 

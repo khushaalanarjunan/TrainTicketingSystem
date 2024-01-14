@@ -1,0 +1,116 @@
+package com.example.trainticketsystem_hashmapbeatstherest;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.trainticketsystem_hashmapbeatstherest.object.TrainSlot;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class SearchSlotFragment extends Fragment {
+
+    ListView listView;
+    ArrayAdapter<String> adapter;
+    List<TrainSlot> trainList;
+
+    private FirebaseAuth mFirebaseAuth;
+    DatabaseReference databaseTrains;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_search_slot, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+
+
+        listView = view.findViewById(R.id.lv_trainslot);
+        trainList = new ArrayList<>();
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        databaseTrains= FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("trains");
+
+        // Read data from Firebase
+        databaseTrains.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                trainList.clear();
+
+                for (DataSnapshot trainSnapshot : dataSnapshot.getChildren()) {
+                    TrainSlot trainslot = trainSnapshot.getValue(TrainSlot.class);
+                    //filter by origin and destination
+                    trainList.add(trainslot);
+                }
+
+                updateListView();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        //click on the item in the listview
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            TrainSlot trainSlot = trainList.get(position);
+            String trainSlotId = trainSlot.getId();
+            String trainSlotCode = trainSlot.getCode();
+            String trainSlotOriginCode = trainSlot.getOriginCode();
+            String trainSlotDestinationCode = trainSlot.getDestinationCode();
+            String trainSlotStartTime = trainSlot.getStartTime();
+            Long trainSlotDuration = trainSlot.getDuration();
+            String trainSlotType = trainSlot.getType();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("trainSlotId", trainSlotId);
+            bundle.putString("trainSlotCode", trainSlotCode);
+            bundle.putString("trainSlotOriginCode", trainSlotOriginCode);
+            bundle.putString("trainSlotDestinationCode", trainSlotDestinationCode);
+            bundle.putString("trainSlotStartTime", trainSlotStartTime);
+            bundle.putLong("trainSlotDuration", trainSlotDuration);
+            bundle.putString("trainSlotType", trainSlotType);
+
+            //SelectSeatFragment selectSeatFragment = new SelectSeatFragment();
+            //selectSeatFragment.setArguments(bundle);
+            ConfirmBookingDetailFragment confirmBookingDetailFragment = new ConfirmBookingDetailFragment();
+            confirmBookingDetailFragment.setArguments(bundle);
+
+            getParentFragmentManager().beginTransaction().replace(R.id.container, confirmBookingDetailFragment).addToBackStack(null).commit();
+        });
+    }
+
+    private void updateListView() {
+        List<String> trainInfoList = new ArrayList<>();
+        for (TrainSlot trainslot : trainList) {
+            String trainInfo = trainslot.getId() + "\n" + trainslot.getCode() + "\n" + trainslot.getOriginCode() + "\n" + trainslot.getDestinationCode() + "\n" + trainslot.getStartTime() + "\n" + trainslot.getDuration() + "\n" + trainslot.getType();
+            trainInfoList.add(trainInfo);
+        }
+
+        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, trainInfoList);
+        listView.setAdapter(adapter);
+
+
+    }
+
+}
