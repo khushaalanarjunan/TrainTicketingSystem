@@ -128,7 +128,6 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                         });
                 Toast.makeText(this,"Paid. Thank You!",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(TopUpDetailsActivity.this, MainActivity.class);
-                intent.putExtra("topup",tv7.getText().toString());
                 startActivity(intent);
             }
         }
