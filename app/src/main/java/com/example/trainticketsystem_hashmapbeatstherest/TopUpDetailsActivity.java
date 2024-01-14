@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.trainticketsystem_hashmapbeatstherest.object.Transaction;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,14 +33,14 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
     TextView tv4,tv7,tv9;
     CardView cardView1;
     DatabaseReference databaseUsers;
-
+    DatabaseReference databaseTransactions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_up_details);
         databaseUsers = FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("users");
-
+        databaseTransactions = FirebaseDatabase.getInstance().getReference("transactions");
         editText = findViewById(R.id.et_amount);
         btn1 = findViewById(R.id.btn1);
         btn2 = findViewById(R.id.btn2);
@@ -147,7 +148,7 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                                                 String dateString = sdf.format(currentTime);
                                                 // Now you have the current hour and minute
                                                 //String currentTime = hour + ":" + minute;
-
+                                                addTransaction(dateString);
                                                 Intent intent = new Intent(TopUpDetailsActivity.this, TopUpSuccessfulActivity.class);
                                                 intent.putExtra("amount",tv7.getText().toString());
                                                 intent.putExtra("paymentType",tv9.getText().toString());
@@ -163,8 +164,17 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                         }
                     }
                 });
-
             }
         }
+    }
+    private void addTransaction(String currentTime){
+        String transactionID = databaseTransactions.push().getKey();
+        String transactionType = "Top up";
+        String transactionAmount = "+"+tv7.getText().toString()+".00";
+        String transactionTime = currentTime;
+        com.example.trainticketsystem_hashmapbeatstherest.object.Transaction newTransaction = new Transaction(transactionID,transactionType,transactionAmount,transactionTime);
+        databaseTransactions.child(transactionID).setValue(newTransaction);
+
+
     }
 }

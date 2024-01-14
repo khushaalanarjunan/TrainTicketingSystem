@@ -6,14 +6,15 @@ public class Transaction {
     private String transactionAmount;
     private String transactionTime;
 
-    public Transaction() {
-    }
+
 
     public Transaction(String transactionID, String transactionType, String transactionAmount, String transactionTime) {
         this.transactionID = transactionID;
         this.transactionType = transactionType;
         this.transactionAmount = transactionAmount;
         this.transactionTime = transactionTime;
+    }
+    public Transaction() {
     }
 
     public String getTransactionID() {
