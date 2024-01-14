@@ -63,6 +63,8 @@ public class EWalletFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot transactionDataSnapshot: dataSnapshot.getChildren())
                 {
+                    transactions.clear();
+                    adapter.clear();
                     com.example.trainticketsystem_hashmapbeatstherest.object.Transaction transaction = transactionDataSnapshot.getValue(com.example.trainticketsystem_hashmapbeatstherest.object.Transaction.class);
                     transactions.add(transaction);
                     adapter.add(transaction.getTransactionType()+"\n"+transaction.getTransactionAmount()+"\n"+transaction.getTransactionTime());
