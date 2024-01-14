@@ -60,7 +60,7 @@ public class PastTicketsFragment extends Fragment {
 
         List<Ticket> AllPassTicket = getAllPassTicket();
 
-        MyTicketRecycleViewAdapter ticketRecyclerViewAdapter = new MyTicketRecycleViewAdapter(getContext(), AllPassTicket);
+        MyTicketRecycleViewAdapter ticketRecyclerViewAdapter = new MyTicketRecycleViewAdapter(getContext(), AllPassTicket, true);
         recyclerView.setAdapter(ticketRecyclerViewAdapter);
     }
 

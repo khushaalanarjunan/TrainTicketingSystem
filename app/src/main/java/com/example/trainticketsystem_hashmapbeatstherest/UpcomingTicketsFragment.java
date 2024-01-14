@@ -78,7 +78,7 @@ public class UpcomingTicketsFragment extends Fragment{
 
         List<Ticket> allUpcomingTicket = getAllUpcomingTicket();
 
-        MyTicketRecycleViewAdapter ticketRecyclerViewAdapter = new MyTicketRecycleViewAdapter(getContext(), allUpcomingTicket);
+        MyTicketRecycleViewAdapter ticketRecyclerViewAdapter = new MyTicketRecycleViewAdapter(getContext(), allUpcomingTicket, false);
         recyclerView.setAdapter(ticketRecyclerViewAdapter);
     }
 

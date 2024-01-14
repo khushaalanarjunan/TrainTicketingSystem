@@ -34,13 +34,15 @@ import java.util.List;
 public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRecycleViewAdapter.TicketViewHolder>{
     public List<Ticket> ticketList;
     private Context context;
+    private Boolean isPassTicket;
     public DecimalFormat df = new DecimalFormat("0.00");
     public DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
     DatabaseReference databaseUsers;
 
-    public MyTicketRecycleViewAdapter(Context context,List<Ticket> ticketList){
+    public MyTicketRecycleViewAdapter(Context context,List<Ticket> ticketList,Boolean isPassTicket){
         this.ticketList = ticketList;
         this.context = context;
+        this.isPassTicket = isPassTicket;
     }
 
     @NonNull
@@ -56,8 +58,12 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
 
     @Override
     public void onBindViewHolder(@NonNull MyTicketRecycleViewAdapter.TicketViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        //if is pass ticket, qrcode and refund button cannot be pressed.
+        if(isPassTicket){
+            holder.btnViewQR.setEnabled(false);
+            holder.btnRefund.setEnabled(false);
+        }
         //set text here
-
         holder.tvTicketID.setText(ticketList.get(position).getTicketID());
         holder.tvTicketPrice.setText("RM " + df.format(ticketList.get(position).getTicketPrice()));
         holder.tvPax.setText(ticketList.get(position).getTicketPax() + " PAX");
@@ -93,14 +99,8 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 User user = snapshot.getValue(User.class);
                                 balance = Float.parseFloat(user.getUserBalance());
-
-//                                Toast.makeText(context, (User)snapshot.getValue(), Toast.LENGTH_LONG).show();
-//                                if (snapshot.exists()) {
-//                                    balance = Float.parseFloat((String) snapshot.getValue());
-//                                    Toast.makeText(context, "Current Balance: " + snapshot.getValue(), Toast.LENGTH_LONG).show();
-//                                }else {
-//                                    Toast.makeText(context, "Balance does not exist", Toast.LENGTH_LONG).show();
-//                                }
+                                balance += (ticketList.get(position).getTicketPrice()*0.8);
+                                databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
                             }
 
                             @Override
@@ -108,15 +108,8 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
                                 //does nothing
                             }
                         });
-
-
-                        balance += (ticketList.get(position).getTicketPrice()*0.8);
-                        databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
-                        //Toast.makeText(context, "refund amount: " + df.format(ticketList.get(position).getTicketPrice()*0.8), Toast.LENGTH_LONG).show();
-
-
                         //delete ticket from firebase and refund money into wallet.
-                        //Toast.makeText(context, "Current Balance: " + df.format(balance), Toast.LENGTH_LONG).show();
+
                     }
                 });
                 alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
