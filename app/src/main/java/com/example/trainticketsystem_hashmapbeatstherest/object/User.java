@@ -27,11 +27,11 @@ public class User {
         this.userBalance = userBalance;
     }
 
-    public String getBalance() {
+    public String getUserBalance() {
         return userBalance;
     }
 
-    public void setBalance(String userBalance) {
+    public void setUserBalance(String userBalance) {
         this.userBalance = userBalance;
     }
 

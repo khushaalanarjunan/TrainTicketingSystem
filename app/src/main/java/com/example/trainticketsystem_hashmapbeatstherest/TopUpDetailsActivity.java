@@ -1,5 +1,6 @@
 package com.example.trainticketsystem_hashmapbeatstherest;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -13,17 +14,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class TopUpDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     String paymentMethod;
     EditText editText;
     Button btn1,btn2,btn3,btn4,btn5,btn6,btn_pay_now;
     TextView tv4,tv7,tv9;
     CardView cardView1;
+    DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_up_details);
+        databaseUsers = FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("users");
 
         editText = findViewById(R.id.et_amount);
         btn1 = findViewById(R.id.btn1);
@@ -105,9 +114,21 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(this,"Please Input Amount & Select Payment Method",Toast.LENGTH_SHORT).show();
             }
             if(!tv7.getText().equals("")&& !tv9.getText().equals("Please Select a Payment Method")){
+                String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(tv7.getText().toString()))
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+
+                                } else {
+
+                                }
+                            }
+                        });
                 Toast.makeText(this,"Paid. Thank You!",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(TopUpDetailsActivity.this, MainActivity.class);
-                intent.putExtra("topup",tv4.getText().toString());
+                intent.putExtra("topup",tv7.getText().toString());
                 startActivity(intent);
             }
         }
