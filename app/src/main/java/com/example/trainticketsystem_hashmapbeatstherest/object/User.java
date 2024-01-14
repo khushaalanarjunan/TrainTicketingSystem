@@ -11,6 +11,9 @@ public class User {
     private String userPassword;
     private String userBalance;
 
+    private TestTicket tickets;
+
+
 
     public User() {
     }
@@ -25,6 +28,26 @@ public class User {
         this.userContact = userContact;
         this.userPassword = userPassword;
         this.userBalance = userBalance;
+    }
+
+    public User(String userId, String userFullName, String userMYKad, Boolean userGender, String userEmail, String userContact, String userPassword, String userBalance, TestTicket tickets) {
+        this.userId = userId;
+        this.userFullName = userFullName;
+        this.userMYKad = userMYKad;
+        this.userGender = userGender;
+        this.userEmail = userEmail;
+        this.userContact = userContact;
+        this.userPassword = userPassword;
+        this.userBalance = userBalance;
+        this.tickets = tickets;
+    }
+
+    public TestTicket getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(TestTicket tickets) {
+        this.tickets = tickets;
     }
 
     public String getUserBalance() {

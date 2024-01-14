@@ -1,15 +1,13 @@
 package com.example.trainticketsystem_hashmapbeatstherest;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
-
 import com.example.trainticketsystem_hashmapbeatstherest.adapter.PaymentMethodsChildAdapter;
-import com.example.trainticketsystem_hashmapbeatstherest.adapter.PaymentMethodsParentAdapter;
 import com.example.trainticketsystem_hashmapbeatstherest.model.DataModel;
 
 import java.util.ArrayList;
@@ -19,6 +17,7 @@ public class PaymentMethodsDetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<DataModel> mList;
     private PaymentMethodsChildAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

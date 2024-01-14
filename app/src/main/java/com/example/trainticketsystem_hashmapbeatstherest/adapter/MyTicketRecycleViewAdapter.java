@@ -18,8 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.trainticketsystem_hashmapbeatstherest.R;
 import com.example.trainticketsystem_hashmapbeatstherest.TicketDetailActivity;
 import com.example.trainticketsystem_hashmapbeatstherest.object.Ticket;
+import com.example.trainticketsystem_hashmapbeatstherest.object.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -31,7 +36,7 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
     private Context context;
     public DecimalFormat df = new DecimalFormat("0.00");
     public DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-
+    DatabaseReference databaseUsers;
 
     public MyTicketRecycleViewAdapter(Context context,List<Ticket> ticketList){
         this.ticketList = ticketList;
@@ -42,7 +47,7 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
     @Override
     public MyTicketRecycleViewAdapter.TicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View ticket_row = LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_row, null);
+        View ticket_row = LayoutInflater.from(parent.getContext()).inflate(R.layout.ticket_row, parent, false);
 
         TicketViewHolder ticketVH = new TicketViewHolder(ticket_row);
 
@@ -52,6 +57,7 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
     @Override
     public void onBindViewHolder(@NonNull MyTicketRecycleViewAdapter.TicketViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //set text here
+
         holder.tvTicketID.setText(ticketList.get(position).getTicketID());
         holder.tvTicketPrice.setText("RM " + df.format(ticketList.get(position).getTicketPrice()));
         holder.tvPax.setText(ticketList.get(position).getTicketPax() + " PAX");
@@ -59,6 +65,12 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
         holder.tvOrigin.setText(ticketList.get(position).getTicketOrigin());
         holder.tvDestination.setText(ticketList.get(position).getTicketDestination());
         holder.btnRefund.setTag(position);
+
+        databaseUsers = FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("users");
+
+        //get current user
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         // when click refund button
         holder.btnRefund.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,12 +82,41 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
                 alert.setMessage("Are you sure you want to refund it?");
 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    float balance;
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //add refunded money in the balance
+
+
+                        databaseUsers.child(currentUserUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                User user = snapshot.getValue(User.class);
+                                balance = Float.parseFloat(user.getUserBalance());
+
+//                                Toast.makeText(context, (User)snapshot.getValue(), Toast.LENGTH_LONG).show();
+//                                if (snapshot.exists()) {
+//                                    balance = Float.parseFloat((String) snapshot.getValue());
+//                                    Toast.makeText(context, "Current Balance: " + snapshot.getValue(), Toast.LENGTH_LONG).show();
+//                                }else {
+//                                    Toast.makeText(context, "Balance does not exist", Toast.LENGTH_LONG).show();
+//                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                //does nothing
+                            }
+                        });
+
+
+                        balance += (ticketList.get(position).getTicketPrice()*0.8);
+                        databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
+                        //Toast.makeText(context, "refund amount: " + df.format(ticketList.get(position).getTicketPrice()*0.8), Toast.LENGTH_LONG).show();
+
+
                         //delete ticket from firebase and refund money into wallet.
-                        DatabaseReference dr = FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("tickets").child(ticketList.get(position).getTicketID());
-                        dr.removeValue();
-                        Toast.makeText(context, "Ticket Refunded", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context, "Current Balance: " + df.format(balance), Toast.LENGTH_LONG).show();
                     }
                 });
                 alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
