@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -115,17 +116,33 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
             }
             if(!tv7.getText().equals("")&& !tv9.getText().equals("Please Select a Payment Method")){
                 String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(tv7.getText().toString()))
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                databaseUsers.child(currentUserUid).child("userBalance").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Get the current userBalance value
+                            String currentBalance = task.getResult().getValue(String.class);
 
-                                } else {
+                            // Calculate the new balance by adding the value of tv7.getText().toString()
+                            int newValue = Integer.parseInt(currentBalance) + Integer.parseInt(tv7.getText().toString());
 
-                                }
-                            }
-                        });
+                            // Update the userBalance with the new value
+                            databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(newValue))
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // Successfully updated the userBalance
+                                            } else {
+                                                // Handle the failure to update the userBalance
+                                            }
+                                        }
+                                    });
+                        } else {
+                            //error fail to fetch data
+                        }
+                    }
+                });
                 Toast.makeText(this,"Paid. Thank You!",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(TopUpDetailsActivity.this, MainActivity.class);
                 startActivity(intent);
