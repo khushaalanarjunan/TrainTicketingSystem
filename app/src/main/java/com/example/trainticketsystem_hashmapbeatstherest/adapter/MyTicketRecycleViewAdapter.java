@@ -64,12 +64,14 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
             holder.btnRefund.setEnabled(false);
         }
         //set text here
-        holder.tvTicketID.setText(ticketList.get(position).getTicketID());
-        holder.tvTicketPrice.setText("RM " + df.format(ticketList.get(position).getTicketPrice()));
-        holder.tvPax.setText(ticketList.get(position).getTicketPax() + " PAX");
-        holder.tvDate.setText(dateFormat.format(ticketList.get(position).getTicketDate()));
-        holder.tvOrigin.setText(ticketList.get(position).getTicketOrigin());
-        holder.tvDestination.setText(ticketList.get(position).getTicketDestination());
+
+        Ticket ticket = ticketList.get(position);
+        holder.tvTicketID.setText(ticket.getTicketID());
+        holder.tvTicketPrice.setText("RM " + df.format(ticket.getTicketPrice()));
+        holder.tvPax.setText(ticket.getTicketPax() + " PAX");
+        holder.tvDate.setText(dateFormat.format(ticket.getTicketDate()));
+        holder.tvOrigin.setText(ticket.getTicketOrigin());
+        holder.tvDestination.setText(ticket.getTicketDestination());
         holder.btnRefund.setTag(position);
 
         databaseUsers = FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("users");
@@ -106,7 +108,7 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
 //                                }else {
 //                                    Toast.makeText(context, "Balance does not exist", Toast.LENGTH_LONG).show();
 //                                }
-                                balance += (ticketList.get(position).getTicketPrice() * 0.8);
+                                balance += (ticket.getTicketPrice() * 0.8);
                                 databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
                             }
 
@@ -135,7 +137,7 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TicketDetailActivity.class);
-                intent.putExtra("ticketId", ticketList.get(position).getTicketID());
+                intent.putExtra("ticketId", ticket.getTicketID());
                 v.getContext().startActivity(intent);
             }
         });
