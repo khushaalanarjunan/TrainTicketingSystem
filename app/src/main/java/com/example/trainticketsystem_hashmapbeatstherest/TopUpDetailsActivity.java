@@ -46,7 +46,7 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
         btn5 = findViewById(R.id.btn5);
         btn6 = findViewById(R.id.btn6);
         btn_pay_now = findViewById(R.id.btn_pay_now);
-        tv4 = findViewById(R.id.tv4);
+        tv4 = findViewById(R.id.topupsuccess_tv_paymenttype);
         tv7 = findViewById(R.id.tv7);
         tv9 = findViewById(R.id.tv9);
         cardView1 = findViewById(R.id.cardView1);
