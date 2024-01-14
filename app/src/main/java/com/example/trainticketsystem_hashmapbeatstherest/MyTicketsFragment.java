@@ -1,19 +1,16 @@
 package com.example.trainticketsystem_hashmapbeatstherest;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.trainticketsystem_hashmapbeatstherest.adapter.MyTicketsFragmentPagerAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -32,7 +29,7 @@ public class MyTicketsFragment extends Fragment {
         //toolbar
         toolbar = root.findViewById(R.id.toolbar_my_tickets);
         tabLayout = root.findViewById(R.id.tabs_my_tickets);
-        viewPager = root.findViewById(R.id.view_pager_my_tickets);
+        viewPager = root.findViewById(R.id.view_pager_my_ticket);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Booking History");
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
