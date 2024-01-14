@@ -21,6 +21,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+
 public class TopUpDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     String paymentMethod;
     EditText editText;
@@ -28,6 +30,7 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
     TextView tv4,tv7,tv9;
     CardView cardView1;
     DatabaseReference databaseUsers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +136,19 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 // Successfully updated the userBalance
+                                                // Get the current time
+                                                Calendar calendar = Calendar.getInstance();
+                                                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                                                int minute = calendar.get(Calendar.MINUTE);
+
+                                                // Now you have the current hour and minute
+                                                String currentTime = hour + ":" + minute;
+
+                                                Intent intent = new Intent(TopUpDetailsActivity.this, TopUpSuccessfulActivity.class);
+                                                intent.putExtra("amount",tv7.getText().toString());
+                                                intent.putExtra("paymentType",tv9.getText().toString());
+                                                intent.putExtra("time",currentTime);
+                                                startActivity(intent);
                                             } else {
                                                 // Handle the failure to update the userBalance
                                             }
@@ -143,9 +159,7 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                         }
                     }
                 });
-                Toast.makeText(this,"Paid. Thank You!",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(TopUpDetailsActivity.this, MainActivity.class);
-                startActivity(intent);
+
             }
         }
     }
