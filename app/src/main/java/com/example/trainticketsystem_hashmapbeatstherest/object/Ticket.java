@@ -1,17 +1,17 @@
-package com.example.trainticketsystem_hashmapbeatstherest;
+package com.example.trainticketsystem_hashmapbeatstherest.object;
 
 import java.util.Date;
 
 public class Ticket {
     String ticketID;
     String ticketOrigin, ticketDestination;
-    String ticketPax;
+    int ticketPax;
     String ticketSeat;
     Date ticketDate;
     float ticketPrice;
 
 
-    public Ticket(String ticketID, String ticketOrigin, String ticketDestination, String ticketPax, float ticketPrice, String ticketSeat, Date ticketDate) {
+    public Ticket(String ticketID, String ticketOrigin, String ticketDestination, int ticketPax, float ticketPrice, String ticketSeat, Date ticketDate) {
         this.ticketID = ticketID;
         this.ticketOrigin = ticketOrigin;
         this.ticketDestination = ticketDestination;
@@ -45,11 +45,11 @@ public class Ticket {
         this.ticketDestination = ticketDestination;
     }
 
-    public String getTicketPax() {
+    public int getTicketPax() {
         return ticketPax;
     }
 
-    public void setTicketPax(String ticketPax) {
+    public void setTicketPax(int ticketPax) {
         this.ticketPax = ticketPax;
     }
 
