@@ -63,8 +63,8 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
             holder.btnViewQR.setEnabled(false);
             holder.btnRefund.setEnabled(false);
         }
-        //set text here
 
+        //set text here
         Ticket ticket = ticketList.get(position);
         holder.tvTicketID.setText(ticket.getTicketID());
         holder.tvTicketPrice.setText("RM " + df.format(ticket.getTicketPrice()));
@@ -93,25 +93,20 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //add refunded money in the balance
-
-
                         databaseUsers.child(currentUserUid).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                User user = snapshot.getValue(User.class);
-                                double balance = Float.parseFloat(user.getUserBalance());
-
-//                                Toast.makeText(context, (User)snapshot.getValue(), Toast.LENGTH_LONG).show();
-//                                if (snapshot.exists()) {
-//                                    balance = Float.parseFloat((String) snapshot.getValue());
-//                                    Toast.makeText(context, "Current Balance: " + snapshot.getValue(), Toast.LENGTH_LONG).show();
-//                                }else {
-//                                    Toast.makeText(context, "Balance does not exist", Toast.LENGTH_LONG).show();
-//                                }
-                                balance += (ticket.getTicketPrice() * 0.8);
-                                databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
+                                double balance;
+                                if (snapshot.exists()) {
+                                    User user = snapshot.getValue(User.class);
+                                    balance = Float.parseFloat(user.getUserBalance());
+                                    balance += (ticket.getTicketPrice() * 0.8);
+                                    databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
+                                    Toast.makeText(context, "Balance Refunded: RM" + df.format(ticket.getTicketPrice() * 0.8), Toast.LENGTH_LONG).show();
+                                }else {
+                                    Toast.makeText(context, "Balance does not exist", Toast.LENGTH_LONG).show();
+                                }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                                 //does nothing
