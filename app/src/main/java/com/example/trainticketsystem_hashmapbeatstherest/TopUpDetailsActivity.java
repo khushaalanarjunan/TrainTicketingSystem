@@ -60,6 +60,7 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
         editText.addTextChangedListener(inputTextWatcher);
         Intent intent = getIntent();
         paymentMethod = intent.getStringExtra("nestedItem");
+        editText.setText(intent.getStringExtra("amount"));
         //from paymentmethodsDetailActivity intent
         if(paymentMethod!=null){
             tv9.setText(paymentMethod);}
@@ -96,16 +97,14 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
         }
         else if(id==R.id.cardView1){
             Intent intent = new Intent(TopUpDetailsActivity.this, PaymentMethodsDetailsActivity.class);
+            intent.putExtra("amount",editText.getText().toString());
             startActivity(intent);
         }
         else if(id==R.id.btn_pay_now){
-            if(tv4.getText().equals("0.00")){
-                Toast.makeText(this,"Please Input Amount",Toast.LENGTH_SHORT).show();
+            if(tv7.getText().equals("")|| tv9.getText().equals("Please Select a Payment Method")){
+                Toast.makeText(this,"Please Input Amount & Select Payment Method",Toast.LENGTH_SHORT).show();
             }
-            if(paymentMethod==null){
-                Toast.makeText(this,"Please Select Payment Method",Toast.LENGTH_SHORT).show();
-            }
-            if(editText.getText()!=null && paymentMethod!=null){
+            if(!tv7.getText().equals("")&& !tv9.getText().equals("Please Select a Payment Method")){
                 Toast.makeText(this,"Paid. Thank You!",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(TopUpDetailsActivity.this, MainActivity.class);
                 intent.putExtra("topup",tv4.getText().toString());

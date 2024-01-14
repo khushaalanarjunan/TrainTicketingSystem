@@ -26,14 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentMethodsChildAdapter extends RecyclerView.Adapter<PaymentMethodsChildAdapter.ItemViewHolder> {
-
+    private String amount;
     private List<DataModel> mList;
     private List<String> list = new ArrayList<>();
     //new
     private Context context;
 
     //new argument context pass
-    public PaymentMethodsChildAdapter(Context context, List<DataModel> mList){
+    public PaymentMethodsChildAdapter(String amount,Context context, List<DataModel> mList){
+        this.amount = amount;
         this.mList  = mList;
         this.context=context;
     }
@@ -74,6 +75,7 @@ public class PaymentMethodsChildAdapter extends RecyclerView.Adapter<PaymentMeth
                 // Implement your logic here
                 Intent intent = new Intent(context, TopUpDetailsActivity.class);
                 intent.putExtra("nestedItem",clickedItem);
+                intent.putExtra("amount",amount);
                 context.startActivity(intent);
 
             }

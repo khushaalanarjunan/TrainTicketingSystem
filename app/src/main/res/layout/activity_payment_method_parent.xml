@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nestedItemTv"
-        android:text="Grocery and Stationary"
+        android:text="Payment Method"
         android:textColor="#8c8c8c"
         android:textSize="16sp"
         android:layout_gravity="center"

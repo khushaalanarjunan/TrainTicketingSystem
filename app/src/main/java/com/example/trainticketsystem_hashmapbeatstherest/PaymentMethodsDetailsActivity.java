@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -26,6 +27,9 @@ public class PaymentMethodsDetailsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.main_recyclervie);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Intent intent = getIntent();
+        String amount = intent.getStringExtra("amount");
 
         mList = new ArrayList<>();
 
@@ -52,7 +56,7 @@ public class PaymentMethodsDetailsActivity extends AppCompatActivity {
         mList.add(new DataModel( nestedList2,"Online Banking (FPX)"));
         mList.add(new DataModel( nestedList3,"E-Wallet"));
 
-        adapter = new PaymentMethodsChildAdapter(this,mList);
+        adapter = new PaymentMethodsChildAdapter(amount,this,mList);
         recyclerView.setAdapter(adapter);
 
     }
