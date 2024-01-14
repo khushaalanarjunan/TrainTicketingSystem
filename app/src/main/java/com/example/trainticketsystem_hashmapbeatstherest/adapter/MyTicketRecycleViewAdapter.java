@@ -88,7 +88,6 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
                 alert.setMessage("Are you sure you want to refund it?");
 
                 alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    float balance;
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //add refunded money in the balance
@@ -98,8 +97,16 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 User user = snapshot.getValue(User.class);
-                                balance = Float.parseFloat(user.getUserBalance());
-                                balance += (ticketList.get(position).getTicketPrice()*0.8);
+                                double balance = Float.parseFloat(user.getUserBalance());
+
+//                                Toast.makeText(context, (User)snapshot.getValue(), Toast.LENGTH_LONG).show();
+//                                if (snapshot.exists()) {
+//                                    balance = Float.parseFloat((String) snapshot.getValue());
+//                                    Toast.makeText(context, "Current Balance: " + snapshot.getValue(), Toast.LENGTH_LONG).show();
+//                                }else {
+//                                    Toast.makeText(context, "Balance does not exist", Toast.LENGTH_LONG).show();
+//                                }
+                                balance += (ticketList.get(position).getTicketPrice() * 0.8);
                                 databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
                             }
 
