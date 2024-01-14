@@ -1,19 +1,29 @@
 package com.example.trainticketsystem_hashmapbeatstherest;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.trainticketsystem_hashmapbeatstherest.adapter.MyTicketRecycleViewAdapter;
+import com.example.trainticketsystem_hashmapbeatstherest.object.Ticket;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link UpcomingTicketsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpcomingTicketsFragment extends Fragment {
+public class UpcomingTicketsFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,10 +59,27 @@ public class UpcomingTicketsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        List<Ticket> allUpcomingTicket = getAllUpcomingTicket();
+
+        MyTicketRecycleViewAdapter ticketRecyclerViewAdapter = new MyTicketRecycleViewAdapter(getContext(), allUpcomingTicket);
+        recyclerView.setAdapter(ticketRecyclerViewAdapter);
     }
 
     @Override
@@ -60,5 +87,16 @@ public class UpcomingTicketsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_upcoming_tickets, container, false);
+    }
+
+    private List<Ticket> getAllUpcomingTicket(){
+        List<Ticket>allUpcomingTicket = new ArrayList<>();
+
+        allUpcomingTicket.add(new Ticket("T123102324124123", "Origin", "Destination", 1, 13.134F, "A18", new Date()));
+        allUpcomingTicket.add(new Ticket("T123102324124124", "Origin", "Destination", 1, 13.134F, "A18", new Date()));
+        allUpcomingTicket.add(new Ticket("T123102324124125", "Origin", "Destination", 1, 13.134F, "A18", new Date()));
+
+
+        return allUpcomingTicket;
     }
 }

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="5dp"
+    app:cardMaxElevation="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/MyTicket_tv_ticketid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="T000102324124123"
+            android:textColor="@color/md_theme_onSurface"
+            android:textColorLink="@color/md_theme_onSurface"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/MyTicket_tv_ticketprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/roboto"
+            android:text="RM 30.00"
+            android:textColor="@color/md_theme_onBackground"
+            android:textColorLink="@color/md_theme_onBackground"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/MyTicket_tv_date"
+            app:layout_constraintTop_toTopOf="@+id/MyTicket_tv_date" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="ETS"
+            android:textColor="@color/md_theme_secondaryFixedDim_mediumContrast"
+            android:textColorLink="#1A1C1E"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/MyTicket_tv_ticketid" />
+
+        <TextView
+            android:id="@+id/MyTicket_tv_pax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="1 Pax"
+            android:textColor="@color/md_theme_secondaryFixedDim_mediumContrast"
+            android:textColorLink="#1A1C1E"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/MyTicket_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="16 Feb 2023"
+            android:textColor="@color/md_theme_onBackground"
+            android:textColorLink="@color/md_theme_onBackground"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/MyTicket_tv_ticketid"
+            app:layout_constraintTop_toBottomOf="@+id/MyTicket_tv_ticketid" />
+
+        <TextView
+            android:id="@+id/MyTicket_tv_origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:text="BUKIT MERTAJAM"
+            android:textColor="@color/md_theme_onSurfaceVariant"
+            android:textColorHint="@color/md_theme_onSurfaceVariant"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/MyTicket_tv_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="DABONG"
+            android:textColor="@color/md_theme_onSurfaceVariant"
+            android:textColorHint="@color/md_theme_onSurfaceVariant"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="Depart"
+            android:textColor="@color/md_theme_onBackground"
+            android:textColorLink="@color/md_theme_onBackground"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/MyTicket_tv_date"
+            app:layout_constraintTop_toBottomOf="@+id/MyTicket_tv_date" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@+id/MyTicket_tv_origin"
+            app:layout_constraintTop_toBottomOf="@+id/MyTicket_tv_origin"
+            app:srcCompat="@drawable/arrow_forward_24px" />
+
+        <Button
+            android:id="@+id/MyTicket_btn_viewqr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#2E628C"
+            android:fontFamily="@font/roboto"
+            android:text="View QR"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/MyTicket_btn_refund"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#FFFFFF"
+            android:fontFamily="@font/roboto"
+            android:text="Refund"
+            android:textColor="#2E628C"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/MyTicket_btn_viewqr"
+            app:layout_constraintEnd_toStartOf="@+id/MyTicket_btn_viewqr"
+            app:strokeColor="#2E628C"
+            app:strokeWidth="1dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

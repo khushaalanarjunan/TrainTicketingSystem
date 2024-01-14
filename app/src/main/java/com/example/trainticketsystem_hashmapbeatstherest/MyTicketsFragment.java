@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -12,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.trainticketsystem_hashmapbeatstherest.adapter.MyTicketsFragmentPagerAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 
 public class MyTicketsFragment extends Fragment {
+
+    BuyTicketFragment buyTicketFragment= new BuyTicketFragment();
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -30,7 +34,17 @@ public class MyTicketsFragment extends Fragment {
         tabLayout = root.findViewById(R.id.tabs_my_tickets);
         viewPager = root.findViewById(R.id.view_pager_my_tickets);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Booking History");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setupViewPager();
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //back to main menu
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, buyTicketFragment).commit();
+                MainActivity.bottomNavigationView.setSelectedItemId(R.id.buy_ticket);
+            }
+        });
         viewPager.setOffscreenPageLimit(10);
         return root;
     }

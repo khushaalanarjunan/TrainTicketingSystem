@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     //bottom navigation 20-25
-    BottomNavigationView bottomNavigationView;
+    static BottomNavigationView bottomNavigationView;
     BuyTicketFragment buyTicketFragment= new BuyTicketFragment();
     MyTicketsFragment myTicketsFragment = new MyTicketsFragment();
     EWalletFragment eWalletFragment = new EWalletFragment();
