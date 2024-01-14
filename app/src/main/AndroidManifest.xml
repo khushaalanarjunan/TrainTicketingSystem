@@ -18,8 +18,7 @@
         <activity
             android:name=".TicketDetailActivity"
             android:exported="false"
-            android:label="@string/title_activity_ticket_detail"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_ticket_detail"/>
         <activity
             android:name=".AuthenticationActivity"
             android:exported="false" />
