@@ -169,7 +169,7 @@
             android:layout_marginTop="@dimen/default_gap"
             android:layout_marginEnd="@dimen/default_gap"
             android:layout_marginBottom="@dimen/default_gap"
-            android:text="Transaction time"
+            android:text="Date/Time"
             android:textColor="?colorOnSurface"
             android:textSize="24dp"
             android:textStyle="bold" />

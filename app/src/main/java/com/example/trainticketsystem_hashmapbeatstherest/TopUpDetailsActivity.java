@@ -21,7 +21,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TopUpDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     String paymentMethod;
@@ -137,17 +139,19 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                                             if (task.isSuccessful()) {
                                                 // Successfully updated the userBalance
                                                 // Get the current time
-                                                Calendar calendar = Calendar.getInstance();
+                                                /*Calendar calendar = Calendar.getInstance();
                                                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
-                                                int minute = calendar.get(Calendar.MINUTE);
-
+                                                int minute = calendar.get(Calendar.MINUTE);*/
+                                                Date currentTime = new Date();
+                                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                                                String dateString = sdf.format(currentTime);
                                                 // Now you have the current hour and minute
-                                                String currentTime = hour + ":" + minute;
+                                                //String currentTime = hour + ":" + minute;
 
                                                 Intent intent = new Intent(TopUpDetailsActivity.this, TopUpSuccessfulActivity.class);
                                                 intent.putExtra("amount",tv7.getText().toString());
                                                 intent.putExtra("paymentType",tv9.getText().toString());
-                                                intent.putExtra("time",currentTime);
+                                                intent.putExtra("time",dateString);
                                                 startActivity(intent);
                                             } else {
                                                 // Handle the failure to update the userBalance
