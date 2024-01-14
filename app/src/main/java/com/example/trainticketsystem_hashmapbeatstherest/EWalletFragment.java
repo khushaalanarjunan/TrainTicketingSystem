@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -57,19 +58,20 @@ public class EWalletFragment extends Fragment {
         transactions = new ArrayList<>();
         loadListView();
 
-        databaseTransactions = FirebaseDatabase.getInstance().getReference("transactions");
-        databaseTransactions.addValueEventListener(new ValueEventListener() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query query = FirebaseDatabase.getInstance()
+                .getReference("transactions")
+                .orderByChild("userId")
+                .equalTo(userId);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 transactions.clear();
                 adapter.clear();
-                for(DataSnapshot transactionDataSnapshot: dataSnapshot.getChildren())
-                {
+                for (DataSnapshot transactionDataSnapshot : dataSnapshot.getChildren()) {
                     com.example.trainticketsystem_hashmapbeatstherest.object.Transaction transaction = transactionDataSnapshot.getValue(com.example.trainticketsystem_hashmapbeatstherest.object.Transaction.class);
-                    transactions.add(0,transaction);
-                    adapter.insert(transaction.getTransactionType()+"\n"+transaction.getTransactionAmount()+"\n"+transaction.getTransactionTime(),0);
-
-
+                    transactions.add(0, transaction);
+                    adapter.insert(transaction.getTransactionType() + "\n" + transaction.getTransactionAmount() + "\n" + transaction.getTransactionTime(), 0);
                 }
             }
 
@@ -86,7 +88,7 @@ public class EWalletFragment extends Fragment {
                 if (task.isSuccessful()) {
                     String userBalance = task.getResult().getValue(String.class);
                     currentBalance = Double.parseDouble(userBalance);
-                    textView.setText(String.format("%.2f",currentBalance));
+                    textView.setText(String.format("%.2f", currentBalance));
                     // Use userBalance as needed (e.g., display it in a TextView)
                 } else {
                     Toast.makeText(getActivity(), "Failed to fetch user balance", Toast.LENGTH_SHORT).show();
@@ -102,9 +104,10 @@ public class EWalletFragment extends Fragment {
         });
         return root;
     }
-    private void loadListView(){
+
+    private void loadListView() {
         listview = root.findViewById(R.id.lv_transactions);
-        adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,android.R.id.text1);
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1);
         listview.setAdapter(adapter);
     }
 }

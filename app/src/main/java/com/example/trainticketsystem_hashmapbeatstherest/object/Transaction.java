@@ -3,18 +3,21 @@ package com.example.trainticketsystem_hashmapbeatstherest.object;
 public class Transaction {
     private String transactionID;
     private String transactionType;
-    private String transactionAmount;
+    private double transactionAmount;
     private String transactionTime;
 
 
+    private String userId;
 
-    public Transaction(String transactionID, String transactionType, String transactionAmount, String transactionTime) {
+    public Transaction() {
+    }
+
+    public Transaction(String transactionID, String transactionType, double transactionAmount, String transactionTime, String userId) {
         this.transactionID = transactionID;
         this.transactionType = transactionType;
         this.transactionAmount = transactionAmount;
         this.transactionTime = transactionTime;
-    }
-    public Transaction() {
+        this.userId = userId;
     }
 
     public String getTransactionID() {
@@ -33,11 +36,11 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public String getTransactionAmount() {
+    public double getTransactionAmount() {
         return transactionAmount;
     }
 
-    public void setTransactionAmount(String transactionAmount) {
+    public void setTransactionAmount(double transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
 
@@ -47,5 +50,13 @@ public class Transaction {
 
     public void setTransactionTime(String transactionTime) {
         this.transactionTime = transactionTime;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

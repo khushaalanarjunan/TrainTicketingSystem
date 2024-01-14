@@ -29,8 +29,8 @@ import java.util.Date;
 public class TopUpDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     String paymentMethod;
     EditText editText;
-    Button btn1,btn2,btn3,btn4,btn5,btn6,btn_pay_now;
-    TextView tv4,tv7,tv9;
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn_pay_now;
+    TextView tv4, tv7, tv9;
     CardView cardView1;
     DatabaseReference databaseUsers;
     DatabaseReference databaseTransactions;
@@ -68,8 +68,10 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
                 tv4.setText(s.toString());
                 tv7.setText(s.toString());
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         };
@@ -78,8 +80,9 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
         paymentMethod = intent.getStringExtra("nestedItem");
         editText.setText(intent.getStringExtra("amount"));
         //from paymentmethodsDetailActivity intent
-        if(paymentMethod!=null){
-            tv9.setText(paymentMethod);}
+        if (paymentMethod != null) {
+            tv9.setText(paymentMethod);
+        }
     }
 
 
@@ -110,70 +113,76 @@ public class TopUpDetailsActivity extends AppCompatActivity implements View.OnCl
             editText.setText(btn6.getText().toString());
             tv4.setText(btn6.getText().toString());
             tv7.setText(btn6.getText().toString());
-        }
-        else if(id==R.id.cardView1){
+        } else if (id == R.id.cardView1) {
             Intent intent = new Intent(TopUpDetailsActivity.this, PaymentMethodsDetailsActivity.class);
-            intent.putExtra("amount",editText.getText().toString());
+            intent.putExtra("amount", editText.getText().toString());
             startActivity(intent);
-        }
-        else if(id==R.id.btn_pay_now){
-            if(tv7.getText().equals("")|| tv9.getText().equals("Please Select a Payment Method")){
-                Toast.makeText(this,"Please Input Amount & Select Payment Method",Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.btn_pay_now) {
+            if (tv7.getText().equals("") || tv9.getText().equals("Please Select a Payment Method")) {
+                Toast.makeText(this, "Please Input Amount & Select Payment Method", Toast.LENGTH_SHORT).show();
             }
-            if(!tv7.getText().equals("")&& !tv9.getText().equals("Please Select a Payment Method")){
+            if (!tv7.getText().equals("") && !tv9.getText().equals("Please Select a Payment Method")) {
                 String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 databaseUsers.child(currentUserUid).child("userBalance").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            // Get the current userBalance value
-                            String currentBalance = task.getResult().getValue(String.class);
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(TopUpDetailsActivity.this, "Failed to get user balance", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                            // Calculate the new balance by adding the value of tv7.getText().toString()
-                            int newValue = Integer.parseInt(currentBalance) + Integer.parseInt(tv7.getText().toString());
+                        // Get the current userBalance value
+                        String currentBalance = task.getResult().getValue(String.class);
 
-                            // Update the userBalance with the new value
-                            databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(newValue))
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                // Successfully updated the userBalance
-                                                // Get the current time
+                        // Calculate the new balance by adding the value of tv7.getText().toString()
+                        double newValue = Double.parseDouble(currentBalance) + Double.parseDouble(tv7.getText().toString());
+
+                        // Update the userBalance with the new value
+                        databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(newValue))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            // Successfully updated the userBalance
+                                            // Get the current time
                                                 /*Calendar calendar = Calendar.getInstance();
                                                 int hour = calendar.get(Calendar.HOUR_OF_DAY);
                                                 int minute = calendar.get(Calendar.MINUTE);*/
-                                                Date currentTime = new Date();
-                                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                                                String dateString = sdf.format(currentTime);
-                                                // Now you have the current hour and minute
-                                                //String currentTime = hour + ":" + minute;
-                                                addTransaction(dateString);
-                                                Intent intent = new Intent(TopUpDetailsActivity.this, TopUpSuccessfulActivity.class);
-                                                intent.putExtra("amount",tv7.getText().toString());
-                                                intent.putExtra("paymentType",tv9.getText().toString());
-                                                intent.putExtra("time",dateString);
-                                                startActivity(intent);
-                                            } else {
-                                                // Handle the failure to update the userBalance
-                                            }
+                                            Date currentTime = new Date();
+                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                                            String dateString = sdf.format(currentTime);
+                                            // Now you have the current hour and minute
+                                            //String currentTime = hour + ":" + minute;
+                                            addTransaction(dateString);
+                                            Intent intent = new Intent(TopUpDetailsActivity.this, TopUpSuccessfulActivity.class);
+                                            intent.putExtra("amount", tv7.getText().toString());
+                                            intent.putExtra("paymentType", tv9.getText().toString());
+                                            intent.putExtra("time", dateString);
+                                            startActivity(intent);
                                         }
-                                    });
-                        } else {
-                            //error fail to fetch data
-                        }
+                                    }
+                                });
+
                     }
                 });
             }
         }
     }
-    private void addTransaction(String currentTime){
-        String transactionID = databaseTransactions.push().getKey();
-        String transactionType = "Top up";
-        String transactionAmount = "+"+tv7.getText().toString()+".00";
-        String transactionTime = currentTime;
-        com.example.trainticketsystem_hashmapbeatstherest.object.Transaction newTransaction = new Transaction(transactionID,transactionType,transactionAmount,transactionTime);
-        databaseTransactions.child(transactionID).setValue(newTransaction);
+
+    private void addTransaction(String currentTime) {
+        try {
+            String transactionID = databaseTransactions.push().getKey();
+            String transactionType = "Top up";
+            Double transactionAmount = Double.parseDouble(tv7.getText().toString());
+            String transactionTime = currentTime;
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            com.example.trainticketsystem_hashmapbeatstherest.object.Transaction newTransaction = new Transaction(transactionID, transactionType, transactionAmount, transactionTime, userId);
+            databaseTransactions.child(transactionID).setValue(newTransaction);
+        } catch (NumberFormatException e) {
+            Toast.makeText(TopUpDetailsActivity.this, "Please enter a valud number", Toast.LENGTH_LONG).show();
+            tv7.setText("");
+            tv7.requestFocus();
+        }
 
 
     }
