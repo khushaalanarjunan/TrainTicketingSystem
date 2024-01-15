@@ -87,14 +87,21 @@ public class SearchSlotFragment extends Fragment {
 
             SeatSelectionFragment selectSeatFragment = new SeatSelectionFragment();
             selectSeatFragment.setArguments(bundle);
-
-
             getParentFragmentManager().beginTransaction().replace(R.id.container, selectSeatFragment).addToBackStack(null).commit();
+
+//            ConfirmBookingDetailFragment confirmBookingDetailFragment = new ConfirmBookingDetailFragment();
+//            confirmBookingDetailFragment.setArguments(bundle);
+            //getParentFragmentManager().beginTransaction().replace(R.id.container, confirmBookingDetailFragment).addToBackStack(null).commit();
         });
     }
 
     private void updateListView() {
         List<String> trainInfoList = new ArrayList<>();
+        if (trainList.isEmpty()) {
+            trainInfoList.add("No train available");
+            //disable the button
+            listView.setEnabled(false);
+        }
         for (TrainSlot trainslot : trainList) {
             String trainInfo = trainslot.getId() + "\n" + trainslot.getCode() + "\n" + trainslot.getOriginCode() + "\n" + trainslot.getDestinationCode() + "\n" + trainslot.getStartTime() + "\n" + trainslot.getDuration() + "\n" + trainslot.getType();
             trainInfoList.add(trainInfo);
