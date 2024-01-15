@@ -38,7 +38,7 @@ public class SelectTrainRecycleViewAdapter extends RecyclerView.Adapter<SelectTr
     public void onBindViewHolder(@NonNull SelectTrainRecycleViewAdapter.TrainSlotViewHolder holder, int position) {
         TrainSlot trainSlot = trainSlotList.get(position);
         //set text
-        holder.tvStartEndTime.setText("");            // to complete
+        holder.tvStartEndTime.setText( " - ");            // to complete
         holder.tvPrice.setText("");                    //to complete
         holder.tvRemark.setText("");                    //to complete
         holder.tvType.setText(trainSlot.getType());
