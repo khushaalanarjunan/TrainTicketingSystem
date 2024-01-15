@@ -91,7 +91,7 @@ public class BuyTicketFragment extends Fragment {
                 String[] items = Arrays.stream(Station.values()).map(Object::toString).toArray(String[]::new);
                 new AlertDialog.Builder(getContext()).setItems(items, (dialog, which) -> {
                     destination = Station.values()[which];
-                    btnChooseDestination.setText(origin.name);
+                    btnChooseDestination.setText(destination.name);
                 }).show();
             }
         });
