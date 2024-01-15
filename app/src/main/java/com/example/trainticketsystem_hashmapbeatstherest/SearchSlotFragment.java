@@ -10,6 +10,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.trainticketsystem_hashmapbeatstherest.enums.Station;
 import com.example.trainticketsystem_hashmapbeatstherest.object.TrainSlot;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +36,7 @@ public class SearchSlotFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_search_slot, container, false);
     }
 
@@ -42,8 +44,11 @@ public class SearchSlotFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
+        Bundle incomingBundle = this.getArguments();
+        Station origin = (Station) incomingBundle.getSerializable("Origin");
+        Station destination = (Station) incomingBundle.getSerializable("Destination");
+        Long startDate = incomingBundle.getLong("startDate");
+        int pax = incomingBundle.getInt("pax");
 
         listView = view.findViewById(R.id.lv_trainslot);
         trainList = new ArrayList<>();
@@ -52,7 +57,9 @@ public class SearchSlotFragment extends Fragment {
         databaseTrains= FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("trains");
 
         // Read data from Firebase
-        databaseTrains.addValueEventListener(new ValueEventListener() {
+        databaseTrains
+                .orderByChild("originCode").equalTo(origin.name())
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 trainList.clear();
@@ -74,28 +81,15 @@ public class SearchSlotFragment extends Fragment {
         listView.setOnItemClickListener((parent, view1, position, id) -> {
             TrainSlot trainSlot = trainList.get(position);
             String trainSlotId = trainSlot.getId();
-            String trainSlotCode = trainSlot.getCode();
-            String trainSlotOriginCode = trainSlot.getOriginCode();
-            String trainSlotDestinationCode = trainSlot.getDestinationCode();
-            Long trainSlotStartTime = trainSlot.getStartTime();
-            Long trainSlotDuration = trainSlot.getDuration();
-            String trainSlotType = trainSlot.getType();
 
             Bundle bundle = new Bundle();
-            bundle.putString("trainSlotId", trainSlotId);
-            bundle.putString("trainSlotCode", trainSlotCode);
-            bundle.putString("trainSlotOriginCode", trainSlotOriginCode);
-            bundle.putString("trainSlotDestinationCode", trainSlotDestinationCode);
-            bundle.putLong("trainSlotStartTime", trainSlotStartTime);
-            bundle.putLong("trainSlotDuration", trainSlotDuration);
-            bundle.putString("trainSlotType", trainSlotType);
+            bundle.putString(SeatSelectionFragment.trainIdParam, trainSlotId);
 
-            //SelectSeatFragment selectSeatFragment = new SelectSeatFragment();
-            //selectSeatFragment.setArguments(bundle);
-            ConfirmBookingDetailFragment confirmBookingDetailFragment = new ConfirmBookingDetailFragment();
-            confirmBookingDetailFragment.setArguments(bundle);
+            SeatSelectionFragment selectSeatFragment = new SeatSelectionFragment();
+            selectSeatFragment.setArguments(bundle);
 
-            getParentFragmentManager().beginTransaction().replace(R.id.container, confirmBookingDetailFragment).addToBackStack(null).commit();
+
+            getParentFragmentManager().beginTransaction().replace(R.id.container, selectSeatFragment).addToBackStack(null).commit();
         });
     }
 
