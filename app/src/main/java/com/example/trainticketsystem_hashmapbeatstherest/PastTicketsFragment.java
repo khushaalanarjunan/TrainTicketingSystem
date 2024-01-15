@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainticketsystem_hashmapbeatstherest.adapter.MyTicketRecycleViewAdapter;
 import com.example.trainticketsystem_hashmapbeatstherest.object.Ticket;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,10 @@ public class PastTicketsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private DatabaseReference databaseUsers;
+    //get current user
+    String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public PastTicketsFragment() {
     }
@@ -70,13 +76,15 @@ public class PastTicketsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_past_tickets, container, false);
     }
     private List<Ticket> getAllPassTicket(){
-        List<Ticket>allUpcomingTicket = new ArrayList<>();
+        Date currentDate = new Date();
+        List<Ticket>allPassTicket = new ArrayList<>();
 
-        allUpcomingTicket.add(new Ticket("T123102324124123", "Origin", "Destination", 1, 13.134F, "A18", new Date()));
-        allUpcomingTicket.add(new Ticket("T123102324124124", "Origin", "Destination", 1, 13.134F, "A18", new Date()));
-        allUpcomingTicket.add(new Ticket("T123102324124125", "Origin", "Destination", 1, 13.134F, "A18", new Date()));
+        allPassTicket.add(new Ticket("T123102324124120", "BUKIT_MERTAJAM", "IPOH", 1, 13.134F, "A18", new Date(124, 0, 1)));
+        allPassTicket.add(new Ticket("T123102324124121", "IPOH", "KAJANG", 5, 73.134F, "A18", new Date(123, 11, 20)));
+        allPassTicket.add(new Ticket("T123102324124122", "BUTTERWORTH", "PENANG", 3, 43.134F, "A18", new Date(123, 11, 25)));
 
 
-        return allUpcomingTicket;
+
+        return allPassTicket;
     }
 }

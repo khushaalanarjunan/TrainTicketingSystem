@@ -102,6 +102,7 @@ public class MyTicketRecycleViewAdapter extends RecyclerView.Adapter<MyTicketRec
                                     balance = Float.parseFloat(user.getUserBalance());
                                     balance += (ticket.getTicketPrice() * 0.8);
                                     databaseUsers.child(currentUserUid).child("userBalance").setValue(String.valueOf(balance));
+                                    //ticketList.remove(ticket);
                                     Toast.makeText(context, "Balance Refunded: RM" + df.format(ticket.getTicketPrice() * 0.8), Toast.LENGTH_LONG).show();
                                 }else {
                                     Toast.makeText(context, "Balance does not exist", Toast.LENGTH_LONG).show();
