@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,8 @@ import java.util.Date;
 public class ConfirmBookingDetailFragment extends Fragment {
 
     TextView tvOrigin, tvDestination, tvTrainID, tvDepartureDate, tvDepartureTime, tvPrice,tvCoach, tvSeat, tvTotalPrice;
+
+    Button btnMakePayment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +49,7 @@ public class ConfirmBookingDetailFragment extends Fragment {
         tvCoach = view.findViewById(R.id.tv_coach);
         tvSeat = view.findViewById(R.id.tv_seat);
         tvTotalPrice = view.findViewById(R.id.tv_total_price);
+        btnMakePayment = view.findViewById(R.id.btn_make_payment);
 
         tvOrigin.setText(trainSlotOriginCode);
         tvDestination.setText(trainSlotDestinationCode);
@@ -58,6 +62,26 @@ public class ConfirmBookingDetailFragment extends Fragment {
         tvSeat.setText("A1");
         tvTotalPrice.setText("RM 100");
 
+
+        //go to  add payment method fragment
+        btnMakePayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("trainSlotId", trainSlotId);
+                bundle.putString("trainSlotCode", trainSlotCode);
+                bundle.putString("trainSlotOriginCode", trainSlotOriginCode);
+                bundle.putString("trainSlotDestinationCode", trainSlotDestinationCode);
+                bundle.putLong("trainSlotStartTime", trainSlotStartTime);
+                bundle.putLong("trainSlotDuration", trainSlotDuration);
+                bundle.putString("trainSlotType", trainSlotType);
+
+                Fragment fragment = new PaymentSuccessfulFragment();
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+
+            }
+        });
 
     }
 }
