@@ -3,6 +3,7 @@ package com.example.trainticketsystem_hashmapbeatstherest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,19 @@ public class TicketDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         String ticketID = intent.getStringExtra("ticketId");
+
+        android.widget.Toolbar toolbar = findViewById(R.id.TicketDetail_toolbar);
+        
+        setActionBar(toolbar);
+        getActionBar().setTitle("Ticket Detail");
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         TextView tvTicketId =findViewById(R.id.TicketDetail_tv_ticketId);
         ImageView ivQrCode = findViewById(R.id.TicketDetail_iv_qrcode);
