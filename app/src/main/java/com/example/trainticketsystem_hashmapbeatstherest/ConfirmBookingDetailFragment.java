@@ -38,6 +38,7 @@ public class ConfirmBookingDetailFragment extends Fragment {
         Long trainSlotStartTime =  bundle.getLong("trainSlotStartTime");
         Long trainSlotDuration = bundle.getLong("trainSlotDuration");
         String trainSlotType = bundle.getString("trainSlotType");
+        String pax = bundle.getString("pax");
 
 
         tvOrigin = view.findViewById(R.id.tv_origin);
@@ -60,7 +61,7 @@ public class ConfirmBookingDetailFragment extends Fragment {
         tvPrice.setText("RM 100");
         tvCoach.setText(trainSlotType);
         tvSeat.setText("A1");
-        tvTotalPrice.setText("RM 100");
+        tvTotalPrice.setText("RM 100 x " + pax + " = RM " + 100*Integer.parseInt(pax));
 
 
         //go to  add payment method fragment
@@ -79,6 +80,8 @@ public class ConfirmBookingDetailFragment extends Fragment {
                 Fragment fragment = new PaymentSuccessfulFragment();
                 fragment.setArguments(bundle);
                 getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+
+
 
             }
         });

@@ -38,8 +38,6 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Initialize Firebase Realtime Database
         databaseUsers = FirebaseDatabase.getInstance("https://hashmapbeatstherest-default-rtdb.firebaseio.com/").getReference("users");
 
         return inflater.inflate(R.layout.fragment_account, container, false);
@@ -128,10 +126,8 @@ public class AccountFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
-                                // Get the current userBalance value
                                 String currentBalance = task.getResult().getValue(String.class);
 
-                                // Create an updatedUser object without changing the balance
                                 User updatedUser = new User(
                                         currentUserUid,
                                         etUserFullName.getText().toString(),
@@ -142,8 +138,6 @@ public class AccountFragment extends Fragment {
                                         etUserPassword.getText().toString(),
                                         currentBalance
                                 );
-
-                                // Update the user profile except the balance
                                 databaseUsers.child(currentUserUid).setValue(updatedUser)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override

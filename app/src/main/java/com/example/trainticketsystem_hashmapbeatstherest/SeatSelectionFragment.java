@@ -84,7 +84,7 @@ public class SeatSelectionFragment extends Fragment {
                 Toast.makeText(getContext(), train.getDestinationCode() + train.getOriginCode() + train.getCoaches().toString(), Toast.LENGTH_SHORT).show();
                 MyTicketsFragmentPagerAdapter adapter = new MyTicketsFragmentPagerAdapter(getChildFragmentManager());
                 for (String coach : train.getCoaches()) {
-                    adapter.addFrag(new CoachAFragment(seatsMap.get(coach)), coach);
+                    //adapter.addFrag(new CoachAFragment(seatsMap.get(coach)), coach);
                 }
                 mViewPagerSeatSelection.setAdapter(adapter);
                 mTabsCoachSelection.setupWithViewPager(mViewPagerSeatSelection);

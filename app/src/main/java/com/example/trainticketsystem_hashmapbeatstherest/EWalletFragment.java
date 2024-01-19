@@ -89,7 +89,6 @@ public class EWalletFragment extends Fragment {
                     String userBalance = task.getResult().getValue(String.class);
                     currentBalance = Double.parseDouble(userBalance);
                     textView.setText(String.format("%.2f", currentBalance));
-                    // Use userBalance as needed (e.g., display it in a TextView)
                 } else {
                     Toast.makeText(getActivity(), "Failed to fetch user balance", Toast.LENGTH_SHORT).show();
                 }
@@ -110,4 +109,5 @@ public class EWalletFragment extends Fragment {
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1);
         listview.setAdapter(adapter);
     }
+
 }

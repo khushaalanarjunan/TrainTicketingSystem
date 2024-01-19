@@ -66,8 +66,10 @@ public class SearchSlotFragment extends Fragment {
 
                 for (DataSnapshot trainSnapshot : dataSnapshot.getChildren()) {
                     TrainSlot trainslot = trainSnapshot.getValue(TrainSlot.class);
-                    //filter by origin and destination
-                    trainList.add(trainslot);
+
+                    if (trainslot.getDestinationCode().equals(destination.name())) {
+                        trainList.add(trainslot);
+                    }
                 }
 
                 updateListView();
@@ -84,14 +86,15 @@ public class SearchSlotFragment extends Fragment {
 
             Bundle bundle = new Bundle();
             bundle.putString(SeatSelectionFragment.trainIdParam, trainSlotId);
+            bundle.putString("pax", String.valueOf(pax));
 
-            SeatSelectionFragment selectSeatFragment = new SeatSelectionFragment();
-            selectSeatFragment.setArguments(bundle);
-            getParentFragmentManager().beginTransaction().replace(R.id.container, selectSeatFragment).addToBackStack(null).commit();
+            //SeatSelectionFragment selectSeatFragment = new SeatSelectionFragment();
+            //selectSeatFragment.setArguments(bundle);
+            //getParentFragmentManager().beginTransaction().replace(R.id.container, selectSeatFragment).addToBackStack(null).commit();
 
-//            ConfirmBookingDetailFragment confirmBookingDetailFragment = new ConfirmBookingDetailFragment();
-//            confirmBookingDetailFragment.setArguments(bundle);
-            //getParentFragmentManager().beginTransaction().replace(R.id.container, confirmBookingDetailFragment).addToBackStack(null).commit();
+            ConfirmBookingDetailFragment confirmBookingDetailFragment = new ConfirmBookingDetailFragment();
+            confirmBookingDetailFragment.setArguments(bundle);
+            getParentFragmentManager().beginTransaction().replace(R.id.container, confirmBookingDetailFragment).addToBackStack(null).commit();
         });
     }
 
