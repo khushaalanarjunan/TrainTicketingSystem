@@ -76,10 +76,6 @@ public class Seat {
         return type.name;
     }
 
-    public void setType(SeatType type) {
-        this.type = type;
-    }
-
     public void setType(String type) {
         this.type = SeatType.valueOf(type);
     }
