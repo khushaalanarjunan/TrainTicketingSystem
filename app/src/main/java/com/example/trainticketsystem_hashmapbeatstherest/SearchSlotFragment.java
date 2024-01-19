@@ -25,6 +25,7 @@ import java.util.List;
 
 public class SearchSlotFragment extends Fragment {
 
+    public static final String trainIdParam = "TRAIN_ID";
     ListView listView;
     ArrayAdapter<String> adapter;
     List<TrainSlot> trainList;
@@ -85,12 +86,8 @@ public class SearchSlotFragment extends Fragment {
             String trainSlotId = trainSlot.getId();
 
             Bundle bundle = new Bundle();
-            bundle.putString(SeatSelectionFragment.trainIdParam, trainSlotId);
+            bundle.putString(this.trainIdParam, trainSlotId);
             bundle.putString("pax", String.valueOf(pax));
-
-            //SeatSelectionFragment selectSeatFragment = new SeatSelectionFragment();
-            //selectSeatFragment.setArguments(bundle);
-            //getParentFragmentManager().beginTransaction().replace(R.id.container, selectSeatFragment).addToBackStack(null).commit();
 
             ConfirmBookingDetailFragment confirmBookingDetailFragment = new ConfirmBookingDetailFragment();
             confirmBookingDetailFragment.setArguments(bundle);

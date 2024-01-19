@@ -118,6 +118,7 @@ public class BuyTicketFragment extends Fragment {
 
                 datepicker.addOnPositiveButtonClickListener(selection -> {
                     startDate = selection;
+                    btnSelectDate.setText(String.format("%1$td/%1$tm/%1$tY", new Date(startDate)));
                 });
 
                 datepicker.show(getParentFragmentManager(), null);
@@ -126,7 +127,7 @@ public class BuyTicketFragment extends Fragment {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnChooseDestination.setText("Choose Origin");
+                btnChooseOrigin.setText("Choose Origin");
                 origin = null;
                 btnChooseDestination.setText("Choose Destination");
                 destination = null;
