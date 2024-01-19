@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -61,24 +62,33 @@ public class SearchSlotFragment extends Fragment {
         databaseTrains
                 .orderByChild("originCode").equalTo(origin.name())
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                trainList.clear();
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        trainList.clear();
 
-                for (DataSnapshot trainSnapshot : dataSnapshot.getChildren()) {
-                    TrainSlot trainslot = trainSnapshot.getValue(TrainSlot.class);
+                        for (DataSnapshot trainSnapshot : dataSnapshot.getChildren()) {
+                            TrainSlot trainslot = trainSnapshot.getValue(TrainSlot.class);
+                            Calendar cal1 = Calendar.getInstance();
+                            Calendar cal2 = Calendar.getInstance();
+                            cal1.setTimeInMillis(trainslot.getStartTime());
+                            cal2.setTimeInMillis(startDate);
+                            boolean isSameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                                    cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
 
-                    if (trainslot.getDestinationCode().equals(destination.name())) {
-                        trainList.add(trainslot);
+                            boolean isSameDestination = trainslot.getDestinationCode().equals(destination.name());
+                            if (isSameDay && isSameDestination) {
+                                trainList.add(trainslot);
+                            }
+                            //filter by origin, destination and startTime
+                        }
+
+                        updateListView();
                     }
-                }
 
-                updateListView();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
 
         //click on the item in the listview
         listView.setOnItemClickListener((parent, view1, position, id) -> {
